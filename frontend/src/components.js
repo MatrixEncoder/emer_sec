@@ -276,43 +276,81 @@ const ServicesSection = () => {
 
 // About Section Component
 const AboutSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    const section = document.getElementById('about-section');
+    if (section) observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-20 px-6 bg-gray-900">
+    <section id="about-section" className="py-20 px-6 bg-gray-900">
       <div className="container mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Image */}
-          <div className="relative">
-            <img 
-              src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHw0fHxjeWJlcnNlY3VyaXR5fGVufDB8fHxibHVlfDE3NTQwNTc1MDV8MA&ixlib=rb-4.1.0&q=85" 
-              alt="Code Security" 
-              className="w-full rounded-xl shadow-2xl"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-transparent rounded-xl"></div>
+          {/* Image with hover and scroll animations */}
+          <div className={`relative transform transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'
+          }`}>
+            <div className="relative overflow-hidden rounded-xl shadow-2xl group">
+              <img 
+                src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHw0fHxjeWJlcnNlY3VyaXR5fGVufDB8fHxibHVlfDE3NTQwNTc1MDV8MA&ixlib=rb-4.1.0&q=85" 
+                alt="Code Security" 
+                className="w-full transform transition-transform duration-700 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Floating code lines animation */}
+              <div className="absolute top-4 left-4 text-green-400 text-xs font-mono opacity-0 group-hover:opacity-80 transition-opacity duration-500 animate-pulse">
+                {'> securing_applications();'}
+              </div>
+              <div className="absolute bottom-4 right-4 text-blue-400 text-xs font-mono opacity-0 group-hover:opacity-80 transition-opacity duration-700 animate-pulse" style={{ animationDelay: '300ms' }}>
+                {'✓ vulnerability_scan_complete'}
+              </div>
+            </div>
           </div>
 
-          {/* Content */}
-          <div>
+          {/* Content with typewriter effect */}
+          <div className={`transform transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-16'
+          }`} style={{ transitionDelay: '300ms' }}>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              Unprecedented Security.{' '}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+              <span className="inline-block animate-fade-in-up">Unprecedented Security.</span>{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent inline-block animate-fade-in-up" style={{ animationDelay: '200ms' }}>
                 Impeccable Reliability.
               </span>
             </h2>
             
-            <p className="text-gray-400 text-lg mb-6 leading-relaxed">
+            <p className={`text-gray-400 text-lg mb-6 leading-relaxed transition-all duration-700 ${
+              isVisible ? 'opacity-100' : 'opacity-0'
+            }`} style={{ transitionDelay: '500ms' }}>
               At CODE_SEC, we specialize in comprehensive cybersecurity solutions that protect your 
               digital assets from evolving threats. Our team of expert security professionals combines 
               cutting-edge technology with proven methodologies to deliver unparalleled protection.
             </p>
             
-            <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+            <p className={`text-gray-400 text-lg mb-8 leading-relaxed transition-all duration-700 ${
+              isVisible ? 'opacity-100' : 'opacity-0'
+            }`} style={{ transitionDelay: '700ms' }}>
               From application security testing to advanced penetration testing, we provide the 
               strategic advantage your business needs to stay ahead of cyber threats. Our solutions 
               are designed to integrate seamlessly with your existing infrastructure while providing 
               maximum security coverage.
             </p>
 
-            <button className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+            <button className={`bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 px-8 py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 hover:shadow-xl btn-primary ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`} style={{ transitionDelay: '900ms' }}>
               Learn More
             </button>
           </div>
