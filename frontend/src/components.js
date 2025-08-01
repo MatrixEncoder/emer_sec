@@ -175,6 +175,8 @@ const HeroSection = () => {
 
 // Services Section Component
 const ServicesSection = () => {
+  const [visibleCards, setVisibleCards] = useState([]);
+  
   const services = [
     {
       title: "Application Security Testing",
@@ -198,42 +200,70 @@ const ServicesSection = () => {
     }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = parseInt(entry.target.dataset.index);
+            setVisibleCards(prev => [...new Set([...prev, index])]);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const cards = document.querySelectorAll('.service-card');
+    cards.forEach(card => observer.observe(card));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="py-20 px-6 bg-gradient-to-b from-black to-gray-900">
       <div className="container mx-auto max-w-6xl">
-        {/* Section Header */}
+        {/* Section Header with animations */}
         <div className="text-center mb-16">
-          <div className="mb-6">
+          <div className="mb-6 transform transition-all duration-1000 hover:scale-110">
             <img 
               src="https://images.unsplash.com/photo-1590494165264-1ebe3602eb80?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxjeWJlcnNlY3VyaXR5fGVufDB8fHxibHVlfDE3NTQwNTc1MDV8MA&ixlib=rb-4.1.0&q=85" 
               alt="Security Solutions" 
-              className="w-20 h-20 mx-auto rounded-lg object-cover opacity-80"
+              className="w-20 h-20 mx-auto rounded-lg object-cover opacity-80 hover:opacity-100 transition-opacity duration-500 animate-pulse"
             />
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white animate-fade-in-up">
             Let Your Security Take Your Business to{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent animate-gradient">
               Higher Grounds
             </span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto">
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '200ms' }}>
             Our comprehensive cybersecurity solutions protect your applications and infrastructure 
             with cutting-edge technology and expert analysis.
           </p>
         </div>
 
-        {/* Services Grid */}
+        {/* Services Grid with staggered animations */}
         <div className="grid md:grid-cols-2 gap-8">
           {services.map((service, index) => (
             <div 
               key={index}
-              className="group bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105"
+              data-index={index}
+              className={`service-card group bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl card-hover ${
+                visibleCards.includes(index) ? 'animate-slide-in-bottom opacity-100' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ 
+                transitionDelay: `${index * 100}ms`,
+                animationDelay: `${index * 150}ms`
+              }}
             >
-              <div className="text-4xl mb-4">{service.icon}</div>
-              <h3 className="text-xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-colors">
+              <div className="text-4xl mb-4 transform transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12">
+                {service.icon}
+              </div>
+              <h3 className="text-xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-all duration-300 transform group-hover:translate-x-2">
                 {service.title}
               </h3>
-              <p className="text-gray-400 leading-relaxed">
+              <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                 {service.description}
               </p>
             </div>
