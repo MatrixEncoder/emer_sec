@@ -780,7 +780,7 @@ const CTASection = () => {
 // Footer Component
 const Footer = () => {
   return (
-    <footer className="bg-black py-16 px-6 border-t border-gray-800">
+    <footer className="bg-black/95 backdrop-blur-md py-16 px-6 border-t border-gray-800 relative z-50">
       <div className="container mx-auto max-w-6xl">
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Company Info */}
@@ -798,13 +798,13 @@ const Footer = () => {
               advanced application security and penetration testing services.
             </p>
             <div className="flex space-x-4">
-              <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
                 <span className="text-sm">📧</span>
               </div>
-              <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
                 <span className="text-sm">🐦</span>
               </div>
-              <div className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
                 <span className="text-sm">💼</span>
               </div>
             </div>
@@ -834,7 +834,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
+        <div className="border-t border-gray-800 pt-8 text-center text-gray-400 relative z-10">
           <p>&copy; 2025 CODE_SEC. All rights reserved. Securing your digital future.</p>
         </div>
       </div>
