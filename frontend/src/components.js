@@ -2,6 +2,292 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import * as THREE from 'three';
 
+// Advanced Cursor Effect Component
+const AdvancedCursor = () => {
+  const cursorRef = useRef(null);
+  const trailRef = useRef([]);
+
+  useEffect(() => {
+    const cursor = cursorRef.current;
+    const trail = [];
+
+    const moveCursor = (e) => {
+      if (cursor) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        
+        // Add trail effect
+        trail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+        if (trail.length > 10) trail.shift();
+      }
+    };
+
+    const animateTrail = () => {
+      const now = Date.now();
+      trail.forEach((point, index) => {
+        const age = now - point.time;
+        if (age < 500) {
+          const trailElement = document.getElementById(`trail-${index}`);
+          if (trailElement) {
+            trailElement.style.left = point.x + 'px';
+            trailElement.style.top = point.y + 'px';
+            trailElement.style.opacity = Math.max(0, 1 - age / 500);
+          }
+        }
+      });
+      requestAnimationFrame(animateTrail);
+    };
+
+    document.addEventListener('mousemove', moveCursor);
+    animateTrail();
+
+    return () => {
+      document.removeEventListener('mousemove', moveCursor);
+    };
+  }, []);
+
+  return (
+    <>
+      <div
+        ref={cursorRef}
+        className="fixed w-6 h-6 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-full pointer-events-none z-[9999] mix-blend-difference opacity-80"
+        style={{ transform: 'translate(-50%, -50%)' }}
+      />
+      {[...Array(10)].map((_, i) => (
+        <div
+          key={i}
+          id={`trail-${i}`}
+          className="fixed w-3 h-3 bg-blue-400 rounded-full pointer-events-none z-[9998] opacity-0"
+          style={{ transform: 'translate(-50%, -50%)' }}
+        />
+      ))}
+    </>
+  );
+};
+
+// Matrix Rain Effect Component
+const MatrixRain = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()";
+    const matrixArray = matrix.split("");
+    const fontSize = 10;
+    const columns = canvas.width / fontSize;
+    const drops = [];
+
+    for (let x = 0; x < columns; x++) {
+      drops[x] = 1;
+    }
+
+    const draw = () => {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0F4';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    };
+
+    const interval = setInterval(draw, 50);
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 z-[1] pointer-events-none opacity-20"
+      style={{ mixBlendMode: 'screen' }}
+    />
+  );
+};
+
+// Scroll Progress Indicator
+const ScrollProgress = () => {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const updateScrollProgress = () => {
+      const scrolled = window.scrollY;
+      const maxHeight = document.body.scrollHeight - window.innerHeight;
+      const progress = (scrolled / maxHeight) * 100;
+      setScrollProgress(progress);
+    };
+
+    window.addEventListener('scroll', updateScrollProgress);
+    return () => window.removeEventListener('scroll', updateScrollProgress);
+  }, []);
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-1 bg-gray-800 z-[60]">
+      <div
+        className="h-full bg-gradient-to-r from-blue-500 via-cyan-400 to-purple-500 transition-all duration-300"
+        style={{ width: `${scrollProgress}%` }}
+      />
+    </div>
+  );
+};
+
+// Enhanced Particle System
+const EnhancedParticles = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+    const particleCount = 100;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2 + 1;
+        this.color = `hsl(${200 + Math.random() * 60}, 70%, 60%)`;
+        this.alpha = Math.random() * 0.5 + 0.2;
+      }
+
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+
+        if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+      }
+
+      draw() {
+        ctx.save();
+        ctx.globalAlpha = this.alpha;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push(new Particle());
+    }
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles.forEach(particle => {
+        particle.update();
+        particle.draw();
+      });
+
+      // Draw connections
+      particles.forEach((particle, i) => {
+        particles.slice(i + 1).forEach(otherParticle => {
+          const dx = particle.x - otherParticle.x;
+          const dy = particle.y - otherParticle.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) {
+            ctx.save();
+            ctx.globalAlpha = (100 - distance) / 100 * 0.1;
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(particle.x, particle.y);
+            ctx.lineTo(otherParticle.x, otherParticle.y);
+            ctx.stroke();
+            ctx.restore();
+          }
+        });
+      });
+
+      requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 z-[2] pointer-events-none"
+    />
+  );
+};
+
+// Glitch Text Effect Component
+const GlitchText = ({ children, className = "" }) => {
+  const [isGlitching, setIsGlitching] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIsGlitching(true);
+      setTimeout(() => setIsGlitching(false), 200);
+    }, 3000 + Math.random() * 2000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className={`relative ${className}`}>
+      <span className={`${isGlitching ? 'animate-glitch' : ''}`}>
+        {children}
+      </span>
+      {isGlitching && (
+        <>
+          <span className="absolute top-0 left-0 text-red-500 opacity-70 animate-glitch-1">
+            {children}
+          </span>
+          <span className="absolute top-0 left-0 text-blue-500 opacity-70 animate-glitch-2">
+            {children}
+          </span>
+        </>
+      )}
+    </span>
+  );
+};
+
 // 3D Background Component
 const ThreeDBackground = () => {
   const mountRef = useRef(null);
