@@ -850,5 +850,6 @@ export const Components = {
   StatsSection,
   PartnersSection,
   CTASection,
-  Footer
+  Footer,
+  ThreeDBackground
 };
