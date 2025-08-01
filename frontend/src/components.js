@@ -585,7 +585,7 @@ const Header = ({ isScrolled }) => {
   );
 };
 
-// Hero Section Component
+// Hero Section Component with Enhanced Effects
 const HeroSection = () => {
   const [animate, setAnimate] = useState(false);
 
@@ -596,30 +596,45 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Enhanced Visual Effects */}
+      <MatrixRain />
+      <EnhancedParticles />
+      <ScrollProgress />
+      <AdvancedCursor />
+      
       {/* 3D Animated Background */}
       <ThreeDBackground />
       
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-10"></div>
+      {/* Dynamic Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-cyan-900/30 z-10 animate-pulse"></div>
       
-      {/* Additional particle overlay */}
+      {/* Floating Orbs */}
       <div className="absolute inset-0 z-20">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30 animate-float"
+            className="absolute w-20 h-20 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-xl animate-float"
             style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${3 + Math.random() * 4}s`
+              left: `${10 + i * 20}%`,
+              top: `${20 + i * 15}%`,
+              animationDelay: `${i * 1.5}s`,
+              animationDuration: `${4 + i}s`
             }}
           />
         ))}
       </div>
 
-      {/* Content with staggered animations */}
+      {/* Content with Enhanced Effects */}
       <div className="relative z-30 text-center px-6 max-w-5xl mx-auto">
+        <div className="mb-8">
+          <div className="w-24 h-24 mx-auto mb-8 relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full animate-spin-slow opacity-20"></div>
+            <div className="absolute inset-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
+              <span className="text-3xl">🛡️</span>
+            </div>
+          </div>
+        </div>
+
         <h1 className="text-6xl md:text-8xl font-bold mb-6">
           <span 
             className={`block text-gray-100 mb-2 transition-all duration-1200 transform drop-shadow-2xl ${
@@ -627,15 +642,15 @@ const HeroSection = () => {
             }`}
             style={{ transitionDelay: '200ms' }}
           >
-            The New Standard
+            <GlitchText>The New Standard</GlitchText>
           </span>
           <span 
-            className={`block bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent transition-all duration-1200 transform drop-shadow-2xl ${
+            className={`block bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent transition-all duration-1200 transform drop-shadow-2xl animate-gradient-x ${
               animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
             }`}
             style={{ transitionDelay: '400ms' }}
           >
-            in Cyber Security
+            <GlitchText>in Cyber Security</GlitchText>
           </span>
         </h1>
         
@@ -645,17 +660,31 @@ const HeroSection = () => {
           }`}
           style={{ transitionDelay: '600ms' }}
         >
-          Protect Your Applications with Advanced Security Solutions
+          <GlitchText>Protect Your Applications with Advanced Security Solutions</GlitchText>
         </p>
 
-        <button 
-          className={`bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-primary shadow-2xl ${
-            animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-          style={{ transitionDelay: '800ms' }}
-        >
-          Learn More
-        </button>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <button 
+            className={`group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-3d shadow-2xl overflow-hidden ${
+              animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+            style={{ transitionDelay: '800ms' }}
+          >
+            <span className="relative z-10">Learn More</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </button>
+
+          <button 
+            className={`group relative bg-transparent border-2 border-blue-500 hover:border-cyan-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:bg-blue-500/10 ${
+              animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+            style={{ transitionDelay: '1000ms' }}
+          >
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+              Watch Demo
+            </span>
+          </button>
+        </div>
       </div>
     </section>
   );
