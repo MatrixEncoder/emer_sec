@@ -722,7 +722,7 @@ const CTASection = () => {
   }, []);
 
   return (
-    <section id="cta-section" className="py-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-cyan-800 relative overflow-hidden">
+    <section id="cta-section" className="py-20 px-6 bg-gradient-to-r from-blue-900/95 via-blue-800/95 to-cyan-800/95 backdrop-blur-md relative overflow-hidden z-50">
       {/* Animated background elements */}
       <div className="absolute inset-0">
         {[...Array(10)].map((_, i) => (
