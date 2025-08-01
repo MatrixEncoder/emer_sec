@@ -690,7 +690,7 @@ const HeroSection = () => {
   );
 };
 
-// Services Section Component
+// Services Section Component with Enhanced Effects
 const ServicesSection = () => {
   const [visibleCards, setVisibleCards] = useState([]);
   
@@ -698,22 +698,26 @@ const ServicesSection = () => {
     {
       title: "Application Security Testing",
       description: "Comprehensive security assessment of your applications to identify vulnerabilities and security flaws before they can be exploited by attackers.",
-      icon: "🛡️"
+      icon: "🛡️",
+      color: "from-blue-500 to-cyan-500"
     },
     {
       title: "Penetration Testing",
       description: "Simulate real-world attacks on your systems to identify security weaknesses and provide actionable recommendations for improvement.",
-      icon: "🔍"
+      icon: "🔍",
+      color: "from-purple-500 to-pink-500"
     },
     {
       title: "Vulnerability Assessment",
       description: "Systematic evaluation of your infrastructure to discover, classify, and prioritize security vulnerabilities across your environment.",
-      icon: "⚡"
+      icon: "⚡",
+      color: "from-yellow-500 to-orange-500"
     },
     {
       title: "Security Code Review",
       description: "Expert analysis of your source code to identify security issues, coding flaws, and potential attack vectors in your applications.",
-      icon: "💻"
+      icon: "💻",
+      color: "from-green-500 to-teal-500"
     }
   ];
 
@@ -737,36 +741,38 @@ const ServicesSection = () => {
   }, []);
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-black/95 to-gray-900/95 backdrop-blur-md relative z-40">
+    <section className="py-20 px-6 bg-gradient-to-b from-black/95 to-gray-900/95 backdrop-blur-md relative z-40 cyber-grid">
       <div className="container mx-auto max-w-6xl">
-        {/* Section Header with animations */}
+        {/* Section Header with enhanced animations */}
         <div className="text-center mb-16">
-          <div className="mb-6 transform transition-all duration-1000 hover:scale-110">
-            <img 
-              src="https://images.unsplash.com/photo-1590494165264-1ebe3602eb80?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxjeWJlcnNlY3VyaXR5fGVufDB8fHxibHVlfDE3NTQwNTc1MDV8MA&ixlib=rb-4.1.0&q=85" 
-              alt="Security Solutions" 
-              className="w-20 h-20 mx-auto rounded-lg object-cover opacity-80 hover:opacity-100 transition-opacity duration-500 animate-pulse"
-            />
+          <div className="mb-6 transform transition-all duration-1000 hover:scale-110 perspective-card">
+            <div className="perspective-card-inner">
+              <img 
+                src="https://images.unsplash.com/photo-1590494165264-1ebe3602eb80?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwyfHxjeWJlcnNlY3VyaXR5fGVufDB8fHxibHVlfDE3NTQwNTc1MDV8MA&ixlib=rb-4.1.0&q=85" 
+                alt="Security Solutions" 
+                className="w-20 h-20 mx-auto rounded-lg object-cover opacity-80 hover:opacity-100 transition-opacity duration-500 animate-pulse hover-glow"
+              />
+            </div>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white animate-fade-in-up">
             Let Your Security Take Your Business to{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent animate-gradient">
-              Higher Grounds
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent animate-gradient-x animate-neon-glow">
+              <GlitchText>Higher Grounds</GlitchText>
             </span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-3xl mx-auto animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+          <p className="text-gray-400 text-lg max-w-3xl mx-auto animate-fade-in-up text-reveal" style={{ animationDelay: '200ms' }}>
             Our comprehensive cybersecurity solutions protect your applications and infrastructure 
             with cutting-edge technology and expert analysis.
           </p>
         </div>
 
-        {/* Services Grid with staggered animations */}
+        {/* Enhanced Services Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {services.map((service, index) => (
             <div 
               key={index}
               data-index={index}
-              className={`service-card group bg-gray-800/80 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl card-hover ${
+              className={`service-card group glass-morphism rounded-xl p-8 hover:border-blue-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover-lift perspective-card ${
                 visibleCards.includes(index) ? 'animate-slide-in-bottom opacity-100' : 'opacity-0 translate-y-8'
               }`}
               style={{ 
@@ -774,16 +780,37 @@ const ServicesSection = () => {
                 animationDelay: `${index * 150}ms`
               }}
             >
-              <div className="text-4xl mb-4 transform transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12">
-                {service.icon}
+              <div className="perspective-card-inner">
+                <div className={`text-4xl mb-4 transform transition-transform duration-300 group-hover:scale-125 group-hover:rotate-12 p-3 rounded-full bg-gradient-to-r ${service.color} w-fit mx-auto group-hover:animate-pulse-ring`}>
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-white group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-400 group-hover:to-cyan-300 group-hover:bg-clip-text transition-all duration-300 transform group-hover:translate-x-2">
+                  <GlitchText>{service.title}</GlitchText>
+                </h3>
+                <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                  {service.description}
+                </p>
+                
+                {/* Hover overlay effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl"></div>
               </div>
-              <h3 className="text-xl font-semibold mb-4 text-white group-hover:text-blue-400 transition-all duration-300 transform group-hover:translate-x-2">
-                {service.title}
-              </h3>
-              <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-                {service.description}
-              </p>
             </div>
+          ))}
+        </div>
+
+        {/* Additional floating elements */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className={`absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-full opacity-30 floating`}
+              style={{
+                left: `${10 + i * 15}%`,
+                top: `${20 + i * 10}%`,
+                animationDelay: `${i * 2}s`,
+                animationDuration: `${4 + i * 2}s`
+              }}
+            />
           ))}
         </div>
       </div>
