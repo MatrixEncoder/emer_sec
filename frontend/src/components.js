@@ -497,7 +497,7 @@ const AboutSection = () => {
   }, []);
 
   return (
-    <section id="about-section" className="py-20 px-6 bg-gray-900">
+    <section id="about-section" className="py-20 px-6 bg-gray-900/95 backdrop-blur-md relative z-40">
       <div className="container mx-auto max-w-6xl">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image with hover and scroll animations */}
