@@ -362,28 +362,74 @@ const AboutSection = () => {
 
 // Stats Section Component
 const StatsSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [counters, setCounters] = useState([0, 0, 0, 0, 0]);
+  
   const stats = [
-    { number: "8", label: "Years of Experience" },
-    { number: "500+", label: "Security Assessments" },
-    { number: "50M+", label: "Vulnerabilities Found" },
-    { number: "15", label: "Countries Worldwide" },
-    { number: "12", label: "Industry Awards" }
+    { number: 8, label: "Years of Experience" },
+    { number: 500, label: "Security Assessments" },
+    { number: 50, label: "Million Vulnerabilities Found" },
+    { number: 15, label: "Countries Worldwide" },
+    { number: 12, label: "Industry Awards" }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+          // Animate counters
+          stats.forEach((stat, index) => {
+            let start = 0;
+            const end = stat.number;
+            const increment = end / 60;
+            const timer = setInterval(() => {
+              start += increment;
+              if (start >= end) {
+                setCounters(prev => {
+                  const newCounters = [...prev];
+                  newCounters[index] = end;
+                  return newCounters;
+                });
+                clearInterval(timer);
+              } else {
+                setCounters(prev => {
+                  const newCounters = [...prev];
+                  newCounters[index] = Math.floor(start);
+                  return newCounters;
+                });
+              }
+            }, 50);
+          });
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    const section = document.getElementById('stats-section');
+    if (section) observer.observe(section);
+
+    return () => observer.disconnect();
+  }, [isVisible]);
+
   return (
-    <section className="py-20 px-6 bg-black">
+    <section id="stats-section" className="py-20 px-6 bg-black">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
-          <div className="mb-6">
+          <div className={`mb-6 transform transition-all duration-1000 ${
+            isVisible ? 'opacity-100 scale-100 rotate-0' : 'opacity-0 scale-75 rotate-12'
+          }`}>
             <img 
               src="https://images.pexels.com/photos/8728559/pexels-photo-8728559.jpeg" 
               alt="Our Achievements" 
-              className="w-20 h-20 mx-auto rounded-lg object-cover opacity-80"
+              className="w-20 h-20 mx-auto rounded-lg object-cover hover:opacity-100 transition-all duration-500 animate-pulse hover:animate-glow"
             />
           </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className={`text-4xl md:text-5xl font-bold text-white mb-4 transition-all duration-800 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`}>
             We Take Pride in Our{' '}
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent animate-gradient">
               Numbers
             </span>
           </h2>
@@ -391,11 +437,19 @@ const StatsSection = () => {
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {stats.map((stat, index) => (
-            <div key={index} className="text-center group">
-              <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2 group-hover:text-cyan-300 transition-colors">
-                {stat.number}
+            <div 
+              key={index} 
+              className={`text-center group transition-all duration-700 transform ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+              }`}
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
+              <div className="text-4xl md:text-5xl font-bold text-blue-400 mb-2 group-hover:text-cyan-300 transition-all duration-300 transform group-hover:scale-110 animate-bounce-in" style={{ animationDelay: `${index * 150}ms` }}>
+                {index < 2 ? counters[index] : `${counters[index]}${index === 2 ? 'M+' : index === 4 ? '' : '+'}`}
+                {index === 1 && '+'}
+                {index === 3 && ''}
               </div>
-              <div className="text-gray-400 text-sm md:text-base font-medium">
+              <div className="text-gray-400 text-sm md:text-base font-medium group-hover:text-gray-300 transition-colors duration-300">
                 {stat.label}
               </div>
             </div>
