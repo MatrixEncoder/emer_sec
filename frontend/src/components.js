@@ -97,71 +97,77 @@ const HeroSection = () => {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    setAnimate(true);
+    const timer = setTimeout(() => setAnimate(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Video/Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 hover:scale-105"
         style={{
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1660644808219-1f103401bc85?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxjeWJlcnNlY3VyaXR5fGVufDB8fHxibHVlfDE3NTQwNTc1MDV8MA&ixlib=rb-4.1.0&q=85')`
         }}
       >
-        {/* Animated particles/dots overlay */}
+        {/* Animated particles/dots overlay with floating animation */}
         <div className="absolute inset-0">
-          {[...Array(50)].map((_, i) => (
+          {[...Array(30)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-20 animate-pulse"
+              className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30 animate-float"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 2}s`,
-                animationDuration: `${2 + Math.random() * 3}s`
+                animationDelay: `${Math.random() * 5}s`,
+                animationDuration: `${3 + Math.random() * 4}s`
               }}
             />
           ))}
         </div>
+        
+        {/* Gradient overlay animation */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-cyan-900/20 animate-pulse"></div>
       </div>
 
-      {/* Content */}
+      {/* Content with staggered animations */}
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
-        <h1 
-          className={`text-6xl md:text-8xl font-bold mb-6 transition-all duration-1000 ${
-            animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'
-          }`}
-        >
-          <span className="block text-gray-200 mb-2">The New Standard</span>
-          <span className="block bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent">
+        <h1 className="text-6xl md:text-8xl font-bold mb-6">
+          <span 
+            className={`block text-gray-200 mb-2 transition-all duration-1200 transform ${
+              animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
+            }`}
+            style={{ transitionDelay: '200ms' }}
+          >
+            The New Standard
+          </span>
+          <span 
+            className={`block bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent transition-all duration-1200 transform ${
+              animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
+            }`}
+            style={{ transitionDelay: '400ms' }}
+          >
             in Cyber Security
           </span>
         </h1>
         
         <p 
-          className={`text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto transition-all duration-1000 delay-300 ${
-            animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'
+          className={`text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto transition-all duration-1000 transform ${
+            animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
+          style={{ transitionDelay: '600ms' }}
         >
           Protect Your Applications with Advanced Security Solutions
         </p>
 
         <button 
-          className={`bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 ${
-            animate ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'
+          className={`bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-primary ${
+            animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
-          style={{ transitionDelay: '600ms' }}
+          style={{ transitionDelay: '800ms' }}
         >
           Learn More
         </button>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
-        </div>
       </div>
     </section>
   );
