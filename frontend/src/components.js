@@ -673,7 +673,7 @@ const PartnersSection = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-gray-900">
+    <section className="py-20 px-6 bg-gray-900/95 backdrop-blur-md relative z-50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -688,7 +688,7 @@ const PartnersSection = () => {
           {partners.map((partner, index) => (
             <div 
               key={index} 
-              className="flex items-center justify-center p-6 bg-gray-800/50 rounded-lg border border-gray-700 hover:border-blue-500/50 transition-all duration-300 group"
+              className="flex items-center justify-center p-6 bg-gray-800/80 backdrop-blur-sm rounded-lg border border-gray-700 hover:border-blue-500/50 transition-all duration-300 group"
             >
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center group-hover:from-blue-400 group-hover:to-cyan-300 transition-all duration-300">
                 <span className="font-bold text-black text-sm">{partner.logo}</span>
