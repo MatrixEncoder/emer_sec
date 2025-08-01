@@ -1166,5 +1166,10 @@ export const Components = {
   PartnersSection,
   CTASection,
   Footer,
-  ThreeDBackground
+  ThreeDBackground,
+  AdvancedCursor,
+  MatrixRain,
+  ScrollProgress,
+  EnhancedParticles,
+  GlitchText
 };
