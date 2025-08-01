@@ -615,7 +615,7 @@ const StatsSection = () => {
   }, [isVisible]);
 
   return (
-    <section id="stats-section" className="py-20 px-6 bg-black">
+    <section id="stats-section" className="py-20 px-6 bg-black/95 backdrop-blur-md relative z-50">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16">
           <div className={`mb-6 transform transition-all duration-1000 ${
