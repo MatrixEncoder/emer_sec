@@ -310,38 +310,33 @@ const HeroSection = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Video/Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 hover:scale-105"
-        style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1660644808219-1f103401bc85?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODB8MHwxfHNlYXJjaHwxfHxjeWJlcnNlY3VyaXR5fGVufDB8fHxibHVlfDE3NTQwNTc1MDV8MA&ixlib=rb-4.1.0&q=85')`
-        }}
-      >
-        {/* Animated particles/dots overlay with floating animation */}
-        <div className="absolute inset-0">
-          {[...Array(30)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30 animate-float"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 5}s`,
-                animationDuration: `${3 + Math.random() * 4}s`
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Gradient overlay animation */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/20 via-transparent to-cyan-900/20 animate-pulse"></div>
+      {/* 3D Animated Background */}
+      <ThreeDBackground />
+      
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-10"></div>
+      
+      {/* Additional particle overlay */}
+      <div className="absolute inset-0 z-20">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-30 animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          />
+        ))}
       </div>
 
       {/* Content with staggered animations */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+      <div className="relative z-30 text-center px-6 max-w-5xl mx-auto">
         <h1 className="text-6xl md:text-8xl font-bold mb-6">
           <span 
-            className={`block text-gray-200 mb-2 transition-all duration-1200 transform ${
+            className={`block text-gray-100 mb-2 transition-all duration-1200 transform drop-shadow-2xl ${
               animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
             }`}
             style={{ transitionDelay: '200ms' }}
@@ -349,7 +344,7 @@ const HeroSection = () => {
             The New Standard
           </span>
           <span 
-            className={`block bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent transition-all duration-1200 transform ${
+            className={`block bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500 bg-clip-text text-transparent transition-all duration-1200 transform drop-shadow-2xl ${
               animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
             }`}
             style={{ transitionDelay: '400ms' }}
@@ -359,7 +354,7 @@ const HeroSection = () => {
         </h1>
         
         <p 
-          className={`text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto transition-all duration-1000 transform ${
+          className={`text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto transition-all duration-1000 transform drop-shadow-lg ${
             animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
           style={{ transitionDelay: '600ms' }}
@@ -368,7 +363,7 @@ const HeroSection = () => {
         </p>
 
         <button 
-          className={`bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-primary ${
+          className={`bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-primary shadow-2xl ${
             animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
           style={{ transitionDelay: '800ms' }}
