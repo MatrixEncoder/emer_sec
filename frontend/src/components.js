@@ -1,5 +1,212 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import * as THREE from 'three';
+
+// 3D Background Component
+const ThreeDBackground = () => {
+  const mountRef = useRef(null);
+  const sceneRef = useRef(null);
+  const rendererRef = useRef(null);
+  const cameraRef = useRef(null);
+  const meshesRef = useRef([]);
+  const frameRef = useRef(null);
+
+  useEffect(() => {
+    if (!mountRef.current) return;
+
+    // Scene setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 0);
+    mountRef.current.appendChild(renderer.domElement);
+
+    // Create cybersecurity-themed 3D objects
+    const meshes = [];
+
+    // Main rotating cube with wireframe
+    const cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
+    const cubeMaterial = new THREE.MeshBasicMaterial({ 
+      color: 0x3b82f6, 
+      wireframe: true,
+      transparent: true,
+      opacity: 0.6
+    });
+    const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    cube.position.set(-3, 0, -5);
+    scene.add(cube);
+    meshes.push({ mesh: cube, type: 'cube' });
+
+    // Floating geometric shapes
+    for (let i = 0; i < 12; i++) {
+      const geometry = Math.random() > 0.5 
+        ? new THREE.TetrahedronGeometry(0.5, 0)
+        : new THREE.OctahedronGeometry(0.5, 0);
+      
+      const material = new THREE.MeshBasicMaterial({
+        color: new THREE.Color().setHSL(0.6 + Math.random() * 0.2, 0.8, 0.5),
+        wireframe: true,
+        transparent: true,
+        opacity: 0.4
+      });
+      
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.position.set(
+        (Math.random() - 0.5) * 20,
+        (Math.random() - 0.5) * 15,
+        (Math.random() - 0.5) * 20
+      );
+      
+      scene.add(mesh);
+      meshes.push({ 
+        mesh, 
+        type: 'float',
+        rotationSpeed: {
+          x: (Math.random() - 0.5) * 0.02,
+          y: (Math.random() - 0.5) * 0.02,
+          z: (Math.random() - 0.5) * 0.02
+        }
+      });
+    }
+
+    // Network connection lines
+    const lineGeometry = new THREE.BufferGeometry();
+    const lineMaterial = new THREE.LineBasicMaterial({ 
+      color: 0x06b6d4, 
+      transparent: true, 
+      opacity: 0.3 
+    });
+    
+    const linePoints = [];
+    for (let i = 0; i < 20; i++) {
+      linePoints.push(new THREE.Vector3(
+        (Math.random() - 0.5) * 30,
+        (Math.random() - 0.5) * 20,
+        (Math.random() - 0.5) * 30
+      ));
+    }
+    lineGeometry.setFromPoints(linePoints);
+    const line = new THREE.Line(lineGeometry, lineMaterial);
+    scene.add(line);
+    meshes.push({ mesh: line, type: 'line' });
+
+    // Particle system
+    const particleGeometry = new THREE.BufferGeometry();
+    const particleCount = 200;
+    const particlePositions = new Float32Array(particleCount * 3);
+    
+    for (let i = 0; i < particleCount * 3; i += 3) {
+      particlePositions[i] = (Math.random() - 0.5) * 50;
+      particlePositions[i + 1] = (Math.random() - 0.5) * 50;
+      particlePositions[i + 2] = (Math.random() - 0.5) * 50;
+    }
+    
+    particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+    const particleMaterial = new THREE.PointsMaterial({
+      color: 0x3b82f6,
+      size: 0.1,
+      transparent: true,
+      opacity: 0.6
+    });
+    
+    const particles = new THREE.Points(particleGeometry, particleMaterial);
+    scene.add(particles);
+    meshes.push({ mesh: particles, type: 'particles' });
+
+    camera.position.z = 5;
+
+    // Store references
+    sceneRef.current = scene;
+    rendererRef.current = renderer;
+    cameraRef.current = camera;
+    meshesRef.current = meshes;
+
+    // Animation loop
+    const animate = () => {
+      frameRef.current = requestAnimationFrame(animate);
+
+      // Get scroll position
+      const scrollY = window.scrollY;
+      const scrollProgress = scrollY / (document.body.scrollHeight - window.innerHeight);
+
+      // Animate based on scroll
+      meshes.forEach((item, index) => {
+        const { mesh, type, rotationSpeed } = item;
+        
+        switch (type) {
+          case 'cube':
+            mesh.rotation.x = scrollProgress * Math.PI * 4;
+            mesh.rotation.y = scrollProgress * Math.PI * 6;
+            mesh.position.y = Math.sin(scrollProgress * Math.PI * 8) * 2;
+            break;
+            
+          case 'float':
+            mesh.rotation.x += rotationSpeed.x;
+            mesh.rotation.y += rotationSpeed.y;
+            mesh.rotation.z += rotationSpeed.z;
+            mesh.position.y += Math.sin(Date.now() * 0.001 + index) * 0.01;
+            
+            // Scroll-based movement
+            mesh.rotation.x += scrollProgress * 0.1;
+            mesh.rotation.y += scrollProgress * 0.15;
+            break;
+            
+          case 'line':
+            mesh.rotation.z = scrollProgress * Math.PI * 2;
+            mesh.material.opacity = 0.3 + Math.sin(scrollProgress * Math.PI * 4) * 0.2;
+            break;
+            
+          case 'particles':
+            mesh.rotation.y = scrollProgress * Math.PI * 3;
+            mesh.rotation.x = Math.sin(scrollProgress * Math.PI * 2) * 0.5;
+            break;
+        }
+      });
+
+      // Camera movement based on scroll
+      camera.position.x = Math.sin(scrollProgress * Math.PI * 2) * 2;
+      camera.position.y = Math.cos(scrollProgress * Math.PI * 1.5) * 1;
+      camera.lookAt(0, 0, 0);
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
+    // Handle resize
+    const handleResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current);
+      }
+      if (mountRef.current && renderer.domElement) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
+      renderer.dispose();
+    };
+  }, []);
+
+  return (
+    <div 
+      ref={mountRef} 
+      className="fixed inset-0 z-0" 
+      style={{ 
+        background: 'radial-gradient(ellipse at center, rgba(15, 23, 42, 0.8) 0%, rgba(0, 0, 0, 0.95) 100%)'
+      }}
+    />
+  );
+};
 
 // Header Component
 const Header = ({ isScrolled }) => {
