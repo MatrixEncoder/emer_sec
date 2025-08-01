@@ -422,7 +422,7 @@ const ServicesSection = () => {
   }, []);
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-black to-gray-900">
+    <section className="py-20 px-6 bg-gradient-to-b from-black/95 to-gray-900/95 backdrop-blur-md relative z-40">
       <div className="container mx-auto max-w-6xl">
         {/* Section Header with animations */}
         <div className="text-center mb-16">
@@ -451,7 +451,7 @@ const ServicesSection = () => {
             <div 
               key={index}
               data-index={index}
-              className={`service-card group bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl card-hover ${
+              className={`service-card group bg-gray-800/80 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl card-hover ${
                 visibleCards.includes(index) ? 'animate-slide-in-bottom opacity-100' : 'opacity-0 translate-y-8'
               }`}
               style={{ 
