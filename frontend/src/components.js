@@ -501,31 +501,73 @@ const PartnersSection = () => {
 
 // CTA Section Component
 const CTASection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.3 }
+    );
+
+    const section = document.getElementById('cta-section');
+    if (section) observer.observe(section);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-cyan-800">
-      <div className="container mx-auto max-w-4xl text-center">
-        <div className="mb-8">
+    <section id="cta-section" className="py-20 px-6 bg-gradient-to-r from-blue-900 via-blue-800 to-cyan-800 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0">
+        {[...Array(10)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-white rounded-full opacity-10 animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${4 + Math.random() * 3}s`
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="container mx-auto max-w-4xl text-center relative z-10">
+        <div className={`mb-8 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+        }`}>
           <div className="w-32 h-32 mx-auto mb-8 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-full animate-pulse opacity-20"></div>
-            <div className="absolute inset-4 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center">
-              <span className="text-4xl">🚀</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-full animate-pulse opacity-30"></div>
+            <div className="absolute inset-2 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center animate-glow">
+              <span className="text-4xl animate-bounce">🚀</span>
             </div>
           </div>
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        <h2 className={`text-4xl md:text-5xl font-bold text-white mb-6 transition-all duration-800 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
           Are You Ready to{' '}
-          <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent animate-gradient">
             Secure Your Business?
           </span>
         </h2>
         
-        <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+        <p className={`text-xl text-blue-100 mb-8 max-w-2xl mx-auto transition-all duration-800 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`} style={{ transitionDelay: '200ms' }}>
           Take the first step towards comprehensive cybersecurity. Our experts are ready to 
           assess your security posture and provide tailored solutions.
         </p>
 
-        <button className="bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-xl">
+        <button className={`bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-primary animate-bounce-in ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`} style={{ transitionDelay: '400ms' }}>
           Get Started
         </button>
       </div>
