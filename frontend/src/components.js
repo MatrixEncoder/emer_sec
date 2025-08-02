@@ -1134,25 +1134,30 @@ const Footer = () => {
           {/* Company Info */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-                <span className="font-bold text-black text-lg">CS</span>
+              <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-lg flex items-center justify-center">
+                <div className="text-2xl font-bold text-black transform rotate-12">⚡</div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-                CODE_SEC
-              </span>
+              <div className="flex flex-col">
+                <span className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
+                  SHASTRA
+                </span>
+                <span className="text-xs text-green-400 font-medium tracking-wider">
+                  UNCOVER • ANALYZE • SECURE
+                </span>
+              </div>
             </div>
             <p className="text-gray-400 mb-4 max-w-md">
               Leading cybersecurity solutions provider, protecting businesses worldwide with 
-              advanced application security and penetration testing services.
+              advanced threat intelligence, penetration testing, and comprehensive security services.
             </p>
             <div className="flex space-x-4">
-              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
                 <span className="text-sm">📧</span>
               </div>
-              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
                 <span className="text-sm">🐦</span>
               </div>
-              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-blue-600 transition-colors cursor-pointer">
+              <div className="w-10 h-10 bg-gray-800/80 backdrop-blur-sm rounded-lg flex items-center justify-center hover:bg-orange-600 transition-colors cursor-pointer">
                 <span className="text-sm">💼</span>
               </div>
             </div>
@@ -1162,10 +1167,10 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Services</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><Link to="#" className="hover:text-blue-400 transition-colors">Application Security</Link></li>
-              <li><Link to="#" className="hover:text-blue-400 transition-colors">Penetration Testing</Link></li>
-              <li><Link to="#" className="hover:text-blue-400 transition-colors">Vulnerability Assessment</Link></li>
-              <li><Link to="#" className="hover:text-blue-400 transition-colors">Code Review</Link></li>
+              <li><Link to="/solutions" className="hover:text-orange-400 transition-colors">Application Security</Link></li>
+              <li><Link to="/solutions" className="hover:text-orange-400 transition-colors">Penetration Testing</Link></li>
+              <li><Link to="/solutions" className="hover:text-orange-400 transition-colors">Vulnerability Assessment</Link></li>
+              <li><Link to="/solutions" className="hover:text-orange-400 transition-colors">Code Review</Link></li>
             </ul>
           </div>
 
@@ -1173,17 +1178,17 @@ const Footer = () => {
           <div>
             <h3 className="text-white font-semibold mb-4">Company</h3>
             <ul className="space-y-2 text-gray-400">
-              <li><Link to="#" className="hover:text-blue-400 transition-colors">About Us</Link></li>
-              <li><Link to="#" className="hover:text-blue-400 transition-colors">Careers</Link></li>
-              <li><Link to="#" className="hover:text-blue-400 transition-colors">Contact</Link></li>
-              <li><Link to="#" className="hover:text-blue-400 transition-colors">Blog</Link></li>
+              <li><Link to="/about" className="hover:text-orange-400 transition-colors">About Us</Link></li>
+              <li><Link to="/programs" className="hover:text-orange-400 transition-colors">Programs</Link></li>
+              <li><Link to="/contact" className="hover:text-orange-400 transition-colors">Contact</Link></li>
+              <li><Link to="/blog" className="hover:text-orange-400 transition-colors">Blog</Link></li>
             </ul>
           </div>
         </div>
 
         {/* Bottom */}
         <div className="border-t border-gray-800 pt-8 text-center text-gray-400 relative z-10">
-          <p>&copy; 2025 CODE_SEC. All rights reserved. Securing your digital future.</p>
+          <p>&copy; 2025 SHASTRA. All rights reserved. Securing your digital future.</p>
         </div>
       </div>
     </footer>
