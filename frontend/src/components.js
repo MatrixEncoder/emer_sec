@@ -506,37 +506,40 @@ const Header = ({ isScrolled }) => {
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-            <span className="font-bold text-black text-lg">CS</span>
+        <Link to="/" className="flex items-center space-x-3">
+          <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-lg flex items-center justify-center relative overflow-hidden">
+            {/* SHASTRA Logo - using stylized "S" for now since we can't load external images directly */}
+            <div className="text-2xl font-bold text-black transform rotate-12">⚡</div>
           </div>
-          <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-            CODE_SEC
-          </span>
-        </div>
+          <div className="flex flex-col">
+            <span className="text-2xl font-bold bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
+              SHASTRA
+            </span>
+            <span className="text-xs text-green-400 font-medium tracking-wider">
+              UNCOVER • ANALYZE • SECURE
+            </span>
+          </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <Link to="#solutions" className="text-gray-300 hover:text-blue-400 transition-colors">
+          <Link to="/solutions" className="text-gray-300 hover:text-orange-400 transition-colors">
             Solutions
           </Link>
-          <Link to="#vision" className="text-gray-300 hover:text-blue-400 transition-colors">
+          <Link to="/vision" className="text-gray-300 hover:text-orange-400 transition-colors">
             Vision
           </Link>
-          <Link to="#programs" className="text-gray-300 hover:text-blue-400 transition-colors">
+          <Link to="/programs" className="text-gray-300 hover:text-orange-400 transition-colors">
             Programs
           </Link>
-          <Link to="#blog" className="text-gray-300 hover:text-blue-400 transition-colors">
-            Blog
-          </Link>
-          <Link to="#login" className="text-gray-300 hover:text-blue-400 transition-colors">
-            Log In
+          <Link to="/about" className="text-gray-300 hover:text-orange-400 transition-colors">
+            About
           </Link>
           <Link 
-            to="#get-started" 
-            className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 px-6 py-2 rounded-lg font-semibold transition-all duration-300"
+            to="/contact" 
+            className="bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 px-6 py-2 rounded-lg font-semibold transition-all duration-300"
           >
-            Get Started
+            Contact Us
           </Link>
         </nav>
 
@@ -557,26 +560,23 @@ const Header = ({ isScrolled }) => {
       {mobileMenuOpen && (
         <div className="md:hidden bg-black/95 backdrop-blur-md border-t border-gray-800">
           <nav className="px-6 py-4 space-y-4">
-            <Link to="#solutions" className="block text-gray-300 hover:text-blue-400 transition-colors">
+            <Link to="/solutions" className="block text-gray-300 hover:text-orange-400 transition-colors">
               Solutions
             </Link>
-            <Link to="#vision" className="block text-gray-300 hover:text-blue-400 transition-colors">
+            <Link to="/vision" className="block text-gray-300 hover:text-orange-400 transition-colors">
               Vision
             </Link>
-            <Link to="#programs" className="block text-gray-300 hover:text-blue-400 transition-colors">
+            <Link to="/programs" className="block text-gray-300 hover:text-orange-400 transition-colors">
               Programs
             </Link>
-            <Link to="#blog" className="block text-gray-300 hover:text-blue-400 transition-colors">
-              Blog
-            </Link>
-            <Link to="#login" className="block text-gray-300 hover:text-blue-400 transition-colors">
-              Log In
+            <Link to="/about" className="block text-gray-300 hover:text-orange-400 transition-colors">
+              About
             </Link>
             <Link 
-              to="#get-started" 
-              className="block bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 px-6 py-2 rounded-lg font-semibold transition-all duration-300 text-center"
+              to="/contact" 
+              className="block bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 px-6 py-2 rounded-lg font-semibold transition-all duration-300 text-center"
             >
-              Get Started
+              Contact Us
             </Link>
           </nav>
         </div>
