@@ -606,14 +606,14 @@ const HeroSection = () => {
       <ThreeDBackground />
       
       {/* Dynamic Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/20 to-cyan-900/30 z-10 animate-pulse"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-orange-900/30 via-yellow-900/20 to-red-900/30 z-10 animate-pulse"></div>
       
       {/* Floating Orbs */}
       <div className="absolute inset-0 z-20">
         {[...Array(5)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-20 h-20 bg-gradient-to-r from-blue-400/20 to-cyan-400/20 rounded-full blur-xl animate-float"
+            className="absolute w-20 h-20 bg-gradient-to-r from-orange-400/20 to-yellow-400/20 rounded-full blur-xl animate-float"
             style={{
               left: `${10 + i * 20}%`,
               top: `${20 + i * 15}%`,
@@ -627,10 +627,10 @@ const HeroSection = () => {
       {/* Content with Enhanced Effects */}
       <div className="relative z-30 text-center px-6 max-w-5xl mx-auto">
         <div className="mb-8">
-          <div className="w-24 h-24 mx-auto mb-8 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full animate-spin-slow opacity-20"></div>
-            <div className="absolute inset-2 bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full flex items-center justify-center animate-pulse">
-              <span className="text-3xl">🛡️</span>
+          <div className="w-32 h-32 mx-auto mb-8 relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full animate-spin-slow opacity-20"></div>
+            <div className="absolute inset-2 bg-gradient-to-r from-orange-600 to-yellow-500 rounded-full flex items-center justify-center animate-pulse">
+              <span className="text-4xl">⚡</span>
             </div>
           </div>
         </div>
@@ -642,15 +642,15 @@ const HeroSection = () => {
             }`}
             style={{ transitionDelay: '200ms' }}
           >
-            <GlitchText>The New Standard</GlitchText>
+            <GlitchText>SHASTRA</GlitchText>
           </span>
           <span 
-            className={`block bg-gradient-to-r from-blue-400 via-cyan-300 to-purple-400 bg-clip-text text-transparent transition-all duration-1200 transform drop-shadow-2xl animate-gradient-x ${
+            className={`block bg-gradient-to-r from-orange-400 via-yellow-300 to-red-400 bg-clip-text text-transparent transition-all duration-1200 transform drop-shadow-2xl animate-gradient-x ${
               animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'
             }`}
             style={{ transitionDelay: '400ms' }}
           >
-            <GlitchText>in Cyber Security</GlitchText>
+            <GlitchText>Uncover • Analyze • Secure</GlitchText>
           </span>
         </h1>
         
@@ -660,30 +660,32 @@ const HeroSection = () => {
           }`}
           style={{ transitionDelay: '600ms' }}
         >
-          <GlitchText>Protect Your Applications with Advanced Security Solutions</GlitchText>
+          <GlitchText>Advanced cybersecurity solutions that protect your digital assets from evolving threats</GlitchText>
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button 
-            className={`group relative bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-3d shadow-2xl overflow-hidden ${
+          <Link 
+            to="/contact"
+            className={`group relative bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-3d shadow-2xl overflow-hidden ${
               animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
             style={{ transitionDelay: '800ms' }}
           >
-            <span className="relative z-10">Learn More</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-          </button>
+            <span className="relative z-10">Get Started</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </Link>
 
-          <button 
-            className={`group relative bg-transparent border-2 border-blue-500 hover:border-cyan-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:bg-blue-500/10 ${
+          <Link 
+            to="/about"
+            className={`group relative bg-transparent border-2 border-orange-500 hover:border-yellow-400 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-110 hover:bg-orange-500/10 ${
               animate ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
             style={{ transitionDelay: '1000ms' }}
           >
-            <span className="bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent">
-              Watch Demo
+            <span className="bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
+              Learn More
             </span>
-          </button>
+          </Link>
         </div>
       </div>
     </section>
