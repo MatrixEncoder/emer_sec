@@ -1066,7 +1066,7 @@ const CTASection = () => {
   }, []);
 
   return (
-    <section id="cta-section" className="py-20 px-6 bg-gradient-to-r from-blue-900/95 via-blue-800/95 to-cyan-800/95 backdrop-blur-md relative overflow-hidden z-50">
+    <section id="cta-section" className="py-20 px-6 bg-gradient-to-r from-orange-900/95 via-yellow-800/95 to-red-800/95 backdrop-blur-md relative overflow-hidden z-50">
       {/* Animated background elements */}
       <div className="absolute inset-0">
         {[...Array(10)].map((_, i) => (
@@ -1088,8 +1088,8 @@ const CTASection = () => {
           isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
         }`}>
           <div className="w-32 h-32 mx-auto mb-8 relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-300 rounded-full animate-pulse opacity-30"></div>
-            <div className="absolute inset-2 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full flex items-center justify-center animate-glow">
+            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-300 rounded-full animate-pulse opacity-30"></div>
+            <div className="absolute inset-2 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full flex items-center justify-center animate-glow">
               <span className="text-4xl animate-bounce">🚀</span>
             </div>
           </div>
@@ -1098,24 +1098,28 @@ const CTASection = () => {
         <h2 className={`text-4xl md:text-5xl font-bold text-white mb-6 transition-all duration-800 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          Are You Ready to{' '}
+          Ready to{' '}
           <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent animate-gradient">
-            Secure Your Business?
+            Secure Your Digital Future?
           </span>
         </h2>
         
-        <p className={`text-xl text-blue-100 mb-8 max-w-2xl mx-auto transition-all duration-800 ${
+        <p className={`text-xl text-orange-100 mb-8 max-w-2xl mx-auto transition-all duration-800 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`} style={{ transitionDelay: '200ms' }}>
-          Take the first step towards comprehensive cybersecurity. Our experts are ready to 
+          Take the first step towards comprehensive cybersecurity. Our SHASTRA experts are ready to 
           assess your security posture and provide tailored solutions.
         </p>
 
-        <button className={`bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-primary animate-bounce-in ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-        }`} style={{ transitionDelay: '400ms' }}>
+        <Link 
+          to="/contact"
+          className={`bg-gradient-to-r from-orange-600 to-yellow-500 hover:from-orange-700 hover:to-yellow-600 px-10 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-110 hover:shadow-2xl btn-primary animate-bounce-in ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          }`} 
+          style={{ transitionDelay: '400ms' }}
+        >
           Get Started
-        </button>
+        </Link>
       </div>
     </section>
   );
